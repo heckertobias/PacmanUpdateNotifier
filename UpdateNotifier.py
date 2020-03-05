@@ -49,4 +49,4 @@ def build_email(packages):
 if __name__ == "__main__":
     paclines = get_pacman_print()
     packages = [get_package_and_version(line) for line in paclines if line.startswith('http')]
-    build_email([('a', '1'), ('b', '2')])
+    build_email(packages)
