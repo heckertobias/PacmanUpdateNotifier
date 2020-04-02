@@ -21,6 +21,8 @@ def get_hostname():
 
 def get_package_and_version(url):
     r = re.search(regexp, url)
+    if r == None:
+        return None
     return (r.group('package'), r.group('version'))
 
 def build_email(packages):
@@ -48,5 +50,8 @@ def build_email(packages):
 
 if __name__ == "__main__":
     paclines = get_pacman_print()
-    packages = [get_package_and_version(line) for line in paclines if line.startswith('http')]
+    packages = []
+    for line in paclines:
+        package = get_package_and_version(line)
+        packages.append(package)
     build_email(packages)
