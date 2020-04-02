@@ -31,7 +31,8 @@ def build_email(packages):
     msg_text += "{:45}| {}\n".format("Package", "Version")
     msg_text += "---------------------------------------------+--------------\n"
     for p in packages:
-        msg_text += "{:45}| {}\n".format(p[0], p[1])
+        if p != None:
+            msg_text += "{:45}| {}\n".format(p[0], p[1])
     if smtp_settings.sshhost != "" and smtp_settings.sshlogin != "":
         msg_text += "\nPlease go to ssh://" + smtp_settings.sshlogin + "@" + smtp_settings.sshhost + " and install the updates via 'pacman -Syu'."
 
@@ -50,8 +51,5 @@ def build_email(packages):
 
 if __name__ == "__main__":
     paclines = get_pacman_print()
-    packages = []
-    for line in paclines:
-        package = get_package_and_version(line)
-        packages.append(package)
+    packages = [get_package_and_version(line) for line in paclines if line.startswith('http')]
     build_email(packages)
