@@ -26,7 +26,7 @@ def get_package_and_version(url):
     return (r.group('package'), r.group('version'))
 
 def build_email(packages):
-    hostname = 'testhost'#get_hostname()
+    hostname = get_hostname()
     msg_text = "The following updates are available on " + hostname + ":\n\n"
     msg_text += "{:45}| {}\n".format("Package", "Version")
     msg_text += "---------------------------------------------+--------------\n"
